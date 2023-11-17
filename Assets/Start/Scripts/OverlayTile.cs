@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class OverlayTile : MonoBehaviour
 {
-    // Update is called once per frame
-    void Update()
+    public int G;
+    public int H;
+    public int F { get { return G + H; } }
+
+    public bool isBlocked = false;
+
+    public OverlayTile Previous;
+
+    public Vector3Int gridLocation;
+
+    private void Update()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             HideTile();
         }
-    }
-
-    public void ShowTile()
-    {
-        gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
     }
 
     public void HideTile()
