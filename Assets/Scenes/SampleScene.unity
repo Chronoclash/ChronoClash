@@ -181,8 +181,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5ee907811de4746afc9a79c0e41bd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overlayTilePrefab: {fileID: 2667528917312176848, guid: 7c947e6a4b4a9485cab71993b01938f5, type: 3}
+  overlayPrefab: {fileID: 5204157503019804572, guid: 7c947e6a4b4a9485cab71993b01938f5, type: 3}
   overlayContainer: {fileID: 1817721810}
+  ignoreBottomTiles: 0
 --- !u!1 &471442035
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +281,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35844e6cf240949f3ba828a7822e4ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 0}
+  cursor: {fileID: 471442035}
+  speed: 2
+  characterPrefab: {fileID: 1929327997344941336, guid: 50a69fb072b654fec8c5811b9310597d, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
