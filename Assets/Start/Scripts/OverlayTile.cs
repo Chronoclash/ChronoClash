@@ -11,8 +11,6 @@ public class OverlayTile : MonoBehaviour
     // F = G + H (total cost)
     public int F { get { return G + H; } }
 
-    public bool isBlocked = false;
-
     // The previous tile in the path
     public OverlayTile Previous;
 
@@ -37,5 +35,11 @@ public class OverlayTile : MonoBehaviour
     public void ShowTile()
     {
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+    }
+
+    public bool isWater()
+    {
+        if (transform.position.z == 1) { return true; }
+        return false;
     }
 }

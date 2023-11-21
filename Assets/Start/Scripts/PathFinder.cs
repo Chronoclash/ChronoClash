@@ -21,6 +21,7 @@ public class PathFinder
         {
             foreach (var item in inRangeTiles)
             {
+                if (item.isWater()) { continue; }
                 searchableTiles.Add(item.grid2DLocation, MapManager.Instance.map[item.grid2DLocation]);
             }
         }
@@ -48,8 +49,7 @@ public class PathFinder
             foreach (var tile in GetNeightbourOverlayTiles(currentOverlayTile))
             {
                 // If the tile is already in the closed list or is not on the same level as the current tile, skip it
-                if (tile.isBlocked || closedList.Contains(tile) || Mathf.Abs(currentOverlayTile.transform.position.z - tile.transform.position.z) > 1)
-
+                if (tile.isWater() || closedList.Contains(tile) || Mathf.Abs(currentOverlayTile.transform.position.z - tile.transform.position.z) > 1)
                 {
                     continue;
                 }
