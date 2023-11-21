@@ -18,6 +18,7 @@ public class OverlayTile : MonoBehaviour
 
     // The grid location of the tile
     public Vector3Int gridLocation;
+    public Vector2Int grid2DLocation { get { return new Vector2Int(gridLocation.x, gridLocation.y); } }
 
     private void Update()
     {
@@ -31,5 +32,10 @@ public class OverlayTile : MonoBehaviour
     public void HideTile()
     {
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+    }
+
+    public void ShowTile()
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
     }
 }

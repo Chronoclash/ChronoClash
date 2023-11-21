@@ -3,13 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
 // This class is used to find the shortest path between two tiles
-public class PathFinder : MonoBehaviour
+public class PathFinder
 {
-    public List<OverlayTile> FindPath(OverlayTile start, OverlayTile end)
+    private Dictionary<Vector2Int, OverlayTile> searchableTiles;
+
+    public List<OverlayTile> FindPath(OverlayTile start, OverlayTile end, List<OverlayTile> inRangeTiles)
+
     {
+        searchableTiles = new Dictionary<Vector2Int, OverlayTile>();
+
         List<OverlayTile> openList = new List<OverlayTile>();
-        List<OverlayTile> closedList = new List<OverlayTile>();
+        HashSet<OverlayTile> closedList = new HashSet<OverlayTile>();
+
+        if (inRangeTiles.Count > 0)
+        {
+            foreach (var item in inRangeTiles)
+            {
+                searchableTiles.Add(item.grid2DLocation, MapManager.Instance.map[item.grid2DLocation]);
+            }
+        }
+        else
+        {
+            searchableTiles = MapManager.Instance.map;
+        }
 
         openList.Add(start);
 
@@ -30,7 +48,8 @@ public class PathFinder : MonoBehaviour
             foreach (var tile in GetNeightbourOverlayTiles(currentOverlayTile))
             {
                 // If the tile is already in the closed list or is not on the same level as the current tile, skip it
-                if (tile.transform.position.z == 1 || closedList.Contains(tile) || Mathf.Abs(currentOverlayTile.transform.position.z - tile.transform.position.z) > 1)
+                if (tile.isBlocked || closedList.Contains(tile) || Mathf.Abs(currentOverlayTile.transform.position.z - tile.transform.position.z) > 1)
+
                 {
                     continue;
                 }
@@ -88,9 +107,9 @@ public class PathFinder : MonoBehaviour
             currentOverlayTile.gridLocation.y
         );
 
-        if (map.ContainsKey(locationToCheck))
+        if (searchableTiles.ContainsKey(locationToCheck))
         {
-            neighbours.Add(map[locationToCheck]);
+            neighbours.Add(searchableTiles[locationToCheck]);
         }
 
         // Left
@@ -99,9 +118,9 @@ public class PathFinder : MonoBehaviour
             currentOverlayTile.gridLocation.y
         );
 
-        if (map.ContainsKey(locationToCheck))
+        if (searchableTiles.ContainsKey(locationToCheck))
         {
-            neighbours.Add(map[locationToCheck]);
+            neighbours.Add(searchableTiles[locationToCheck]);
         }
 
         // Top
@@ -110,9 +129,9 @@ public class PathFinder : MonoBehaviour
             currentOverlayTile.gridLocation.y + 1
         );
 
-        if (map.ContainsKey(locationToCheck))
+        if (searchableTiles.ContainsKey(locationToCheck))
         {
-            neighbours.Add(map[locationToCheck]);
+            neighbours.Add(searchableTiles[locationToCheck]);
         }
 
         // Bottom
@@ -121,12 +140,11 @@ public class PathFinder : MonoBehaviour
             currentOverlayTile.gridLocation.y - 1
         );
 
-        if (map.ContainsKey(locationToCheck))
+        if (searchableTiles.ContainsKey(locationToCheck))
         {
-            neighbours.Add(map[locationToCheck]);
+            neighbours.Add(searchableTiles[locationToCheck]);
         }
 
         return neighbours;
     }
-
 }
