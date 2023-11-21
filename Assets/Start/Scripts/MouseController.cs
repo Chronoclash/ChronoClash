@@ -59,9 +59,10 @@ public class MouseController : MonoBehaviour
                     path[i].SetSprite(arrow);
                 }*/
             }
-
+         
             if (Input.GetMouseButtonDown(0))
             {
+                print(character == null); print(path); print(isMoving); print(hit);
                 tile.ShowTile();
 
                 if (character == null)
@@ -70,18 +71,24 @@ public class MouseController : MonoBehaviour
                     PositionCharacterOnLine(tile);
                     GetInRangeTiles();
                 }
+                else if (!rangeFinderTiles.Contains(tile))
+                {
+                    isMoving = false;
+                    GetInRangeTiles();
+                    return;
+                }
                 else
                 {
                     isMoving = true;
                     tile.gameObject.GetComponent<OverlayTile>().HideTile();
                 }
             }
+            if (path.Count > 0 && isMoving)
+            {
+                MoveAlongPath();
+            }
         }
 
-        if (path.Count > 0 && isMoving)
-        {
-            MoveAlongPath();
-        }
     }
 
     private void MoveAlongPath()
@@ -134,6 +141,7 @@ public class MouseController : MonoBehaviour
 
         foreach (var item in rangeFinderTiles)
         {
+            if (item.isWater()) continue;
             item.ShowTile();
         }
     }

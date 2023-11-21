@@ -65,20 +65,21 @@ public class MapManager : MonoBehaviour
                         }
 
                         // If the tile is not empty, instantiate an overlay tile
-                        if (tm.HasTile(new Vector3Int(x, y, z)))
+                        if (!tm.HasTile(new Vector3Int(x, y, z)))
                         {
-                            // If the tile is not in the dictionary, instantiate an overlay tile
-                            // Set the overlay tile's position to the tile's position
-                            if (!map.ContainsKey(new Vector2Int(x, y)))
-                            {
-                                var overlayTile = Instantiate(overlayPrefab, overlayContainer.transform);
-                                var cellWorldPosition = tm.GetCellCenterWorld(new Vector3Int(x, y, z));
-                                overlayTile.transform.position = new Vector3(cellWorldPosition.x, cellWorldPosition.y, cellWorldPosition.z + 1);
-                                overlayTile.GetComponent<SpriteRenderer>().sortingOrder = tm.GetComponent<TilemapRenderer>().sortingOrder;
-                                overlayTile.gameObject.GetComponent<OverlayTile>().gridLocation = new Vector3Int(x, y, z);
+                            continue;
+                        }
+                        // If the tile is not in the dictionary, instantiate an overlay tile
+                        // Set the overlay tile's position to the tile's position
+                        if (!map.ContainsKey(new Vector2Int(x, y)))
+                        {
+                            var overlayTile = Instantiate(overlayPrefab, overlayContainer.transform);
+                            var cellWorldPosition = tm.GetCellCenterWorld(new Vector3Int(x, y, z));
+                            overlayTile.transform.position = new Vector3(cellWorldPosition.x, cellWorldPosition.y, cellWorldPosition.z + 1);
+                            overlayTile.GetComponent<SpriteRenderer>().sortingOrder = tm.GetComponent<TilemapRenderer>().sortingOrder;
+                            overlayTile.gameObject.GetComponent<OverlayTile>().gridLocation = new Vector3Int(x, y, z);
 
-                                map.Add(new Vector2Int(x, y), overlayTile.gameObject.GetComponent<OverlayTile>());
-                            }
+                            map.Add(new Vector2Int(x, y), overlayTile.gameObject.GetComponent<OverlayTile>());
                         }
                     }
                 }
