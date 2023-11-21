@@ -4,18 +4,24 @@ using UnityEngine;
 
 public class OverlayTile : MonoBehaviour
 {
+    // G = distance from start node
     public int G;
+    // H = distance from end node
     public int H;
+    // F = G + H (total cost)
     public int F { get { return G + H; } }
 
     public bool isBlocked = false;
 
+    // The previous tile in the path
     public OverlayTile Previous;
 
+    // The grid location of the tile
     public Vector3Int gridLocation;
 
     private void Update()
     {
+        // Hide tile when clicked
         if (Input.GetMouseButtonDown(0))
         {
             HideTile();
