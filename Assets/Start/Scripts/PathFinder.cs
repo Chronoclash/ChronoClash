@@ -21,7 +21,6 @@ public class PathFinder
         {
             foreach (var item in inRangeTiles)
             {
-                if (item.isWater()) { continue; }
                 searchableTiles.Add(item.grid2DLocation, MapManager.Instance.map[item.grid2DLocation]);
             }
         }
