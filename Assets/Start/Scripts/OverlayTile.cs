@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OverlayTile : MonoBehaviour
@@ -39,27 +40,34 @@ public class OverlayTile : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.6f);
     }
 
+    /// <summary>
+    ///     This function tells us if the tile is water
+    /// </summary>
+    /// <returns>
+    ///     bool
+    /// </returns>
     public bool isWater()
     {
         if (transform.position.z == 1) { return true; }
         return false;
     }
 
+    /// <summary>
+    ///     <para>ArrowDirection</para>
+    ///     This function sets the sprit in the tile in the rang by giving it the direction from the ArrowDirection enum. If the direction is None it turns the sprid color to 0
+    /// </summary> 
     public void SetSprite(ArrowTranslator.ArrowDirection d)
     {
-        SpriteRenderer[] sprite = GetComponentsInChildren<SpriteRenderer>();
+        SpriteRenderer sprite = GetComponentsInChildren<SpriteRenderer>()[1];
         if (d == ArrowTranslator.ArrowDirection.None)
         {
-            if (sprite.Length == 2)
-            {
-                sprite[1].color = new Color(1, 1, 1, 0);
-            }
+            sprite.color = new Color(1, 1, 1, 0);
         }
         else
         {
-            sprite[0].color = new Color(1, 1, 1, 1);
-            sprite[0].sprite = arrows[(int)d];
-            sprite[0].sortingOrder = gameObject.GetComponent<SpriteRenderer>().sortingOrder;
+            sprite.color = new Color(1, 1, 1, 1);
+            sprite.sprite = arrows[(int)d];
+            sprite.sortingOrder = 1;
         }
     }
 }

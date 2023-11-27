@@ -9,6 +9,6 @@ public class CharacterInfo : MonoBehaviour
 
     private void Update()
     {
-        GetComponent<SpriteRenderer>().sortingOrder = 1;
+        GetComponent<SpriteRenderer>().sortingOrder = 2;
     }
 }
